@@ -1,3 +1,11 @@
+import os
+from dotenv import load_dotenv
+
+from langchain_google_vertexai import VertexAIEmbeddings
+from langchain_postgres import PGVector
+
+load_dotenv()
+
 PROMPT_TEMPLATE = """
 CONTEXTO:
 {contexto}
@@ -25,5 +33,31 @@ PERGUNTA DO USUÁRIO:
 RESPONDA A "PERGUNTA DO USUÁRIO"
 """
 
+
+
 def search_prompt(question=None):
-    pass
+    embeddings = VertexAIEmbeddings(
+        model_name=os.environ["GOOGLE_EMBEDDING_MODEL"]
+    )
+
+    store = PGVector(
+        embeddings=embeddings,
+        collection_name=os.environ["PG_VECTOR_COLLECTION_NAME"],
+        connection=os.environ["DATABASE_URL"],
+        use_jsonb=True
+    )
+
+    documents = store.similarity_search_with_score(question, k=10)
+
+    if not documents:
+      return "Não tenho informações necessárias para responder sua pergunta."
+    
+    context = "\n\n".join([doc.page_content for doc, _ in documents])
+
+    prompt = PROMPT_TEMPLATE.format(contexto=context, pergunta=question)
+
+    message = [
+        {"role": "user", "content": prompt}
+    ]
+
+    return message
