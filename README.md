@@ -24,6 +24,21 @@ O sistema permite:
 - Busca semântica sobre o conteúdo do PDF.
 - Chat interativo que responde perguntas com base apenas no conteúdo do documento.
 
+## Informaçõe técnicas do projeto
+
+### 1. Ingestão do PDF
+- O PDF deve ser dividido em chunks de 1000 caracteres com overlap de 150.
+- Cada chunk deve ser convertido em embedding.
+- Os vetores devem ser armazenados no banco de dados PostgreSQL com pgVector.
+
+### 2. Consulta via CLI
+- Criar um script Python para simular um chat no terminal.
+- Passos ao receber uma pergunta:
+	- Vetorizar a pergunta.
+	- Buscar os 10 resultados mais relevantes (k=10) no banco vetorial.
+	- Montar o prompt e chamar a LLM.
+	- Retornar a resposta ao usuário.
+
 ## Arquitetura
 
 - **Python**: Scripts principais em `src/`
