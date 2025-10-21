@@ -27,17 +27,12 @@ O sistema permite:
 ## Informaçõe técnicas do projeto
 
 ### 1. Ingestão do PDF
-- O PDF deve ser dividido em chunks de 1000 caracteres com overlap de 150.
-- Cada chunk deve ser convertido em embedding.
-- Os vetores devem ser armazenados no banco de dados PostgreSQL com pgVector.
+- O PDF deve será dividido em chunks de 1000 caracteres com overlap de 150.
+- Cada chunk será convertido em embedding.
+- Os vetores são armazenados no banco de dados PostgreSQL com pgVector.
 
 ### 2. Consulta via CLI
-- Criar um script Python para simular um chat no terminal.
-- Passos ao receber uma pergunta:
-	- Vetorizar a pergunta.
-	- Buscar os 10 resultados mais relevantes (k=10) no banco vetorial.
-	- Montar o prompt e chamar a LLM.
-	- Retornar a resposta ao usuário.
+    - Buscar os 10 resultados mais relevantes (k=10) no banco vetorial.
 
 ## Arquitetura
 
