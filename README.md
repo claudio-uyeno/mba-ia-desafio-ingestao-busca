@@ -6,6 +6,7 @@ Este projeto implementa um sistema de busca semântica e chat sobre documentos P
 ## Sumário
 
 - [Visão Geral](#visão-geral)
+- [Informações técnicas](#informações-técnicas-do-projeto)
 - [Arquitetura](#arquitetura)
 - [Pré-requisitos](#pré-requisitos)
 - [Instalação](#instalação)
